@@ -1,4 +1,4 @@
-using NhanceMap.Services;
+using Nhance.Decide.Services;
 using Pluralize.NET;
 
 var builder = WebApplication.CreateBuilder(args);

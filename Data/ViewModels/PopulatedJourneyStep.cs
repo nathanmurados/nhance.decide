@@ -1,7 +1,7 @@
-using NhanceMap.Data.DataModels;
-using NhanceMap.Data.DataModels.Improvements;
+using Nhance.Decide.Data.DataModels;
+using Nhance.Decide.Data.DataModels.Improvements;
 
-namespace NhanceMap.Data.ViewModels;
+namespace Nhance.Decide.Data.ViewModels;
 
 public class PopulatedJourneyStep : IImprovable
 {

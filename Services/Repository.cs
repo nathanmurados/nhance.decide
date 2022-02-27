@@ -1,8 +1,8 @@
-using NhanceMap.Data.DataModels.Improvables;
-using NhanceMap.Data.DataModels.Improvements;
-using NhanceMap.Data.DataModels.Relationships;
+using Nhance.Decide.Data.DataModels.Improvables;
+using Nhance.Decide.Data.DataModels.Improvements;
+using Nhance.Decide.Data.DataModels.Relationships;
 
-namespace NhanceMap.Services;
+namespace Nhance.Decide.Services;
 
 public class Repository
 {

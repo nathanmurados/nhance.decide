@@ -1,6 +1,6 @@
-using NhanceMap.Data.ViewModels;
+using Nhance.Decide.Data.ViewModels;
 
-namespace NhanceMap.Services;
+namespace Nhance.Decide.Services;
 
 public static class PotentialCalculator
 {

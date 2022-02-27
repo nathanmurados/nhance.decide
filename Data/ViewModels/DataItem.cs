@@ -1,4 +1,4 @@
-namespace NhanceMap.Data.ViewModels;
+namespace Nhance.Decide.Data.ViewModels;
 
 public class DataItem
 {

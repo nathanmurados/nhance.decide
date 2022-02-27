@@ -1,9 +1,9 @@
-using NhanceMap.Data.DataModels;
-using NhanceMap.Data.DataModels.Improvables;
-using NhanceMap.Data.DataModels.Improvements;
-using NhanceMap.Data.ViewModels;
+using Nhance.Decide.Data.DataModels;
+using Nhance.Decide.Data.DataModels.Improvables;
+using Nhance.Decide.Data.DataModels.Improvements;
+using Nhance.Decide.Data.ViewModels;
 
-namespace NhanceMap.Services;
+namespace Nhance.Decide.Services;
 
 public static class Populator
 {

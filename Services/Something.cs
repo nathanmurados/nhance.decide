@@ -1,6 +1,6 @@
 using System.Drawing;
 
-namespace NhanceMap.Services;
+namespace Nhance.Decide.Services;
 
 public static class PercentColorRanges
 { 

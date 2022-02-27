@@ -1,4 +1,4 @@
-namespace NhanceMap.Data.DataModels;
+namespace Nhance.Decide.Data.DataModels;
 
 public interface IHasSuggestionId
 {

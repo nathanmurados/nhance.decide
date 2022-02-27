@@ -1,7 +1,7 @@
-using NhanceMap.Data.DataModels.Improvables;
-using NhanceMap.Data.DataModels.Improvements;
+using Nhance.Decide.Data.DataModels.Improvables;
+using Nhance.Decide.Data.DataModels.Improvements;
 
-namespace NhanceMap.Data.DataModels.Relationships;
+namespace Nhance.Decide.Data.DataModels.Relationships;
 
 public class JourneyStepSuggestion: IHasSuggestionId
 {

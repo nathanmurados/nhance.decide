@@ -1,6 +1,6 @@
-using NhanceMap.Data.DataModels;
+using Nhance.Decide.Data.DataModels;
 
-namespace NhanceMap.Services;
+namespace Nhance.Decide.Services;
 
 internal static class ImprovableHelper
 {

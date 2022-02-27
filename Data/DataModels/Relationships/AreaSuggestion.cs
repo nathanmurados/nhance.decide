@@ -1,4 +1,4 @@
-namespace NhanceMap.Data.DataModels.Relationships;
+namespace Nhance.Decide.Data.DataModels.Relationships;
 
 public class AreaSuggestion : IHasSuggestionId
 {

@@ -1,4 +1,4 @@
-namespace NhanceMap.Data.DataModels.Improvements;
+namespace Nhance.Decide.Data.DataModels.Improvements;
 
 public class Suggestion : IImprovement, IHasDescription
 {

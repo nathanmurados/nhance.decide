@@ -1,4 +1,4 @@
-namespace NhanceMap.Data.DataModels.Improvables;
+namespace Nhance.Decide.Data.DataModels.Improvables;
 
 public class JourneyStep : IImprovable
 {
