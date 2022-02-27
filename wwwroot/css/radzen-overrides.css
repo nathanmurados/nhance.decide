@@ -1,0 +1,153 @@
+﻿:root {
+    --color-1: #00303f;
+    --color-2: #007ea7;
+    --color-3: #00607f;
+    --color-4: #0090bf;
+    --color-5: #00c0ff;
+    --color-6: #3fd0ff;
+    --color-7: #7fdfff;
+    --color-8: #bfefff;
+}
+.rz-button.btn-primary, .btn-primary.rz-paginator-element {
+    background-color: var(--color-2);
+}
+
+.rz-scheme-monochrome .rz-series-0 {
+    fill: var(--color-1);
+    stroke: var(--color-1);
+}
+
+.rz-scheme-monochrome .rz-series-0-tooltip .rz-chart-tooltip-content {
+    border: 1px solid var(--color-1);
+}
+
+.rz-scheme-monochrome .rz-series-item-0 {
+    fill: var(--color-1);
+    stroke: var(--color-1);
+}
+
+    .rz-scheme-monochrome .rz-series-item-0 .rz-chart-tooltip-content {
+        border: 1px solid var(--color-1);
+    }
+
+.rz-scheme-monochrome .rz-series-1 {
+    fill: var(--color-2);
+    stroke: var(--color-2);
+}
+
+.rz-scheme-monochrome .rz-series-1-tooltip .rz-chart-tooltip-content {
+    border: 1px solid var(--color-2);
+}
+
+.rz-scheme-monochrome .rz-series-item-1 {
+    fill: var(--color-2);
+    stroke: var(--color-2);
+}
+
+    .rz-scheme-monochrome .rz-series-item-1 .rz-chart-tooltip-content {
+        border: 1px solid var(--color-2);
+    }
+
+.rz-scheme-monochrome .rz-series-2 {
+    fill: var(--color-3);
+    stroke: var(--color-3);
+}
+
+.rz-scheme-monochrome .rz-series-2-tooltip .rz-chart-tooltip-content {
+    border: 1px solid var(--color-3);
+}
+
+.rz-scheme-monochrome .rz-series-item-2 {
+    fill: var(--color-3);
+    stroke: var(--color-3);
+}
+
+    .rz-scheme-monochrome .rz-series-item-2 .rz-chart-tooltip-content {
+        border: 1px solid var(--color-3);
+    }
+
+.rz-scheme-monochrome .rz-series-3 {
+    fill: var(--color-4);
+    stroke: var(--color-4);
+}
+
+.rz-scheme-monochrome .rz-series-3-tooltip .rz-chart-tooltip-content {
+    border: 1px solid var(--color-4);
+}
+
+.rz-scheme-monochrome .rz-series-item-3 {
+    fill: var(--color-4);
+    stroke: var(--color-4);
+}
+
+    .rz-scheme-monochrome .rz-series-item-3 .rz-chart-tooltip-content {
+        border: 1px solid var(--color-4);
+    }
+
+.rz-scheme-monochrome .rz-series-4 {
+    fill: var(--color-5);
+    stroke: var(--color-5);
+}
+
+.rz-scheme-monochrome .rz-series-4-tooltip .rz-chart-tooltip-content {
+    border: 1px solid var(--color-5);
+}
+
+.rz-scheme-monochrome .rz-series-item-4 {
+    fill: var(--color-5);
+    stroke: var(--color-5);
+}
+
+    .rz-scheme-monochrome .rz-series-item-4 .rz-chart-tooltip-content {
+        border: 1px solid var(--color-5);
+    }
+
+.rz-scheme-monochrome .rz-series-5 {
+    fill: var(--color-6);
+    stroke: var(--color-6);
+}
+
+.rz-scheme-monochrome .rz-series-5-tooltip .rz-chart-tooltip-content {
+    border: 1px solid var(--color-6);
+}
+
+.rz-scheme-monochrome .rz-series-item-5 {
+    fill: var(--color-6);
+    stroke: var(--color-6);
+}
+
+    .rz-scheme-monochrome .rz-series-item-5 .rz-chart-tooltip-content {
+        border: 1px solid var(--color-6);
+    }
+
+.rz-scheme-monochrome .rz-series-6 {
+    fill: var(--color-7);
+    stroke: var(--color-7);
+}
+
+.rz-scheme-monochrome .rz-series-6-tooltip .rz-chart-tooltip-content {
+    border: 1px solid var(--color-7);
+}
+
+.rz-scheme-monochrome .rz-series-item-6 {
+    fill: var(--color-7);
+    stroke: var(--color-7);
+}
+
+    .rz-scheme-monochrome .rz-series-item-6 .rz-chart-tooltip-content {
+        border: 1px solid var(--color-7);
+    }
+
+.rz-scheme-monochrome .rz-series-7 {
+    fill: var(--color-8);
+    stroke: var(--color-8);
+}
+
+.rz-scheme-monochrome .rz-series-7-tooltip .rz-chart-tooltip-content {
+    border: 1px solid var(--color-8);
+}
+
+.rz-scheme-monochrome .rz-series-item-7 {
+    fill: var(--color-8);
+    stroke: var(--color-8);
+}

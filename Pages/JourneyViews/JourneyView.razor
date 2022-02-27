@@ -1,0 +1,123 @@
+﻿@page "/journeys/{JourneyId}"
+@using NhanceMap.Data.ViewModels
+@using NhanceMap.Services
+@using Pluralize.NET
+@using System.Linq
+@inject NavigationManager _navigationManager
+@inject Repository _repo
+@inject IPluralize _pluralizer;
+
+<PageTitle>Journeys</PageTitle>
+
+<h5>
+    <span class="fake-anchor clickable" @onclick="GoHome">Home</span> &gt;
+    <span class="fake-anchor clickable" @onclick="GoJourneys">Journeys</span>
+</h5>
+<h1>@_journey.Name</h1>
+
+
+<div class="row">
+    <div class="col-lg-9">
+        <p>@(_journey.Description??"No description.")</p>
+    </div>
+</div>
+
+<div class="row" style="margin-bottom: 60px;">
+
+    <div class="col-lg-6">
+        @foreach (var js in _journey.PopulatedSteps)
+        {
+            <div class="timeline clickable @(_selectedStep?.Id == js.Id ? "selected" : _selectedStep == null ? "" : "quiet")" @onclick="() => ToggleSelected(js)">
+                <strong></strong>
+                <h2>@js.Name</h2>
+
+                <div class="keyser-soze">
+                    <p>@js.Description</p>
+                    <p>
+                        <i class="fal fa-comment-lines" style="width: 20px;"></i>
+                        @if (!js.Suggestions.Any())
+                        {
+                            <span>No suggestions</span>
+                        }
+                        else
+                        {
+                            @($"{js.Suggestions.Count()} {_pluralizer.Format("Suggestion", js.Suggestions.Count())}")
+                        }
+                    </p>
+                    <RadzenButton Text="Add Suggestion" Icon="add_circle_outline" ButtonStyle="ButtonStyle.Primary" />
+                    @if (js.Potential() > 0)
+                    {
+                        <div class="potential-number bad">
+                            -@js.Potential()
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="potential-number good"><i class="far fa-check"></i></div>
+                    }
+                </div>
+            </div>
+        }
+        <hr />
+        <RadzenButton Text="Add Step" Icon="add_circle_outline" ButtonStyle="ButtonStyle.Primary" />
+
+    </div>
+    <div class="col-lg-6 selected-step">
+        @if (_selectedStep != null)
+        {
+            if (_selectedStep.Suggestions.Any())
+            {
+                <h2>Suggestions</h2>
+                @foreach (var s in _selectedStep.Suggestions)
+                {
+                    <h3>@s.Headline</h3>
+                    <p>@s.Description</p>
+
+                    <label>Who benefits?</label>
+                    <div class="avatars-that-benefit">
+                        <img src="https://eu.ui-avatars.com/api/?name=VIP+Users&background=00303f&color=fff" title="VIP Users" alt="VIP Users" class="avatar clickable">
+                        <img src="https://eu.ui-avatars.com/api/?name=Core+Users&background=00303f&color=fff" title="Core Users" alt="Core Users" class="avatar clickable">
+                        <img src="https://eu.ui-avatars.com/api/?name=Casual+Users&background=0090bf&color=fff" title="Casual Users" alt="Casual Users" class="avatar clickable">
+
+                    </div>
+
+                    <label>How much would this step be improved?</label>
+                    <RadzenNumeric TValue="int" Min="1" Max="10" @bind-Value=@s.WeightOfPotential Class="w-100" />
+                    <hr/>
+                }
+            }
+        }
+    </div>
+
+</div>
+
+@code {
+
+    protected override void OnParametersSet()
+    {
+        _journey = _repo.Journeys.First(j => j.Id.ToString() == JourneyId).Populate(_repo);
+    }
+
+    [Parameter]
+    public string JourneyId { get; set; }
+
+    private PopulatedJourney _journey = new();
+    private PopulatedJourneyStep? _selectedStep = null;
+
+    private void GoHome() => _navigationManager.NavigateTo($"/", true);
+    private void GoJourneys() => _navigationManager.NavigateTo($"/journeys", true);
+
+
+    private void ToggleSelected(PopulatedJourneyStep pjs)
+    {
+        if (_selectedStep?.Id == pjs?.Id)
+        {
+            _selectedStep = null;
+        }
+        else
+        {
+            _selectedStep = pjs;
+        }
+    }
+
+} 

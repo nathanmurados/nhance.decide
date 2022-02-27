@@ -1,0 +1,62 @@
+﻿@page "/areas"
+@using NhanceMap.Data.ViewModels
+@using NhanceMap.Services
+@inject NavigationManager _navigationManager
+@inject Repository _repo
+
+<PageTitle>Areas</PageTitle>
+
+<h1>Areas</h1> 
+
+<div class="row">
+    @foreach (var j in Areas)
+    {
+        <div class="col-lg-4">
+            <div class="improvable">
+                <h3>@j.Name</h3>
+                @if (j.Potential() == 0)
+                {
+                    <span class="perfect">
+                        No room for improvement.<br/>
+                    </span>
+                }
+                else
+                {
+                    <span>
+                        <i class="fal fa-award"></i> @j.Potential() Potential
+                    </span>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+
+@code {
+
+    protected override void OnParametersSet()
+    {
+        Areas = _repo.Areas.Select(j => j.Populate(_repo));
+    }
+
+    public IEnumerable<PopulatedArea> Areas { get; set; } = new List<PopulatedArea>();
+
+}
+
+<style>
+    .improvable {
+        border-bottom: rgb(106, 106, 106) 1px solid;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+    }
+    .improvable h3 {
+        text-overflow: ellipsis;
+        overflow: hidden; 
+        white-space: nowrap;
+    }
+    .improvable span {
+        color: rgb(106, 106, 106);
+    }
+    .perfect {
+    }
+</style>

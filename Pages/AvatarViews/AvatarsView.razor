@@ -1,0 +1,33 @@
+﻿@page "/avatars"
+@using NhanceMap.Data.DataModels.Improvables
+@using NhanceMap.Services
+@inject NavigationManager _navigationManager
+@inject Repository _repo
+
+<PageTitle>Avatars</PageTitle>
+
+<h1>Avatars</h1>
+
+
+@code {
+
+    protected override void OnParametersSet()
+    {
+        Avatars = _repo.Avatars;
+    }
+
+    public IEnumerable<Avatar> Avatars { get; set; } = new List<Avatar>();
+
+}
+
+<style>
+    .icon {
+        font-size: 60px;
+        font-weight: 300;
+    }
+
+    .panel {
+        margin-bottom: 30px;
+        cursor: pointer;
+    }
+</style>

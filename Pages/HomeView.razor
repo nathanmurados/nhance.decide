@@ -1,0 +1,144 @@
+﻿@page "/"
+@using NhanceMap.Data.ViewModels
+@using NhanceMap.Services
+@using Pluralize.NET
+@inject NavigationManager _navigationManager
+@inject Repository _repo
+@inject IPluralize _pluralizer;
+
+<PageTitle>Home</PageTitle>
+
+<h5>&nbsp;</h5>
+<h1>Home</h1>
+
+<div class="row">
+    <div class="col-lg-4">
+        <RadzenCard class="clickable panel" @onclick="GoJourneys">
+            <h3 class="h5">Journeys</h3>
+            <i class="fal fa-shoe-prints icon"></i>
+            <label class="emphasised-number">@Journeys</label>
+        </RadzenCard>
+    </div>
+
+    <div class="col-lg-4">
+        <RadzenCard class="clickable panel" @onclick="GoAreas">
+            <h3 class="h5">Areas</h3>
+            <i class="far fa-cog icon"></i>
+            <label class="emphasised-number">@AreaCount</label>
+        </RadzenCard>
+    </div>
+
+    <div class="col-lg-4">
+        <RadzenCard class="clickable panel" @onclick="GoAvatars">
+            <h3 class="h5">Avatars</h3>
+            <i class="fal fa-user icon"></i>
+            <label class="emphasised-number">@AvatarCount</label>
+        </RadzenCard>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 panel">
+        <RadzenCard>
+            <h3 class="h5">Total Suggestions</h3>
+            <RadzenChart ColorScheme="@colorScheme">
+                <RadzenDonutSeries Data="@_sumOfSuggestions" CategoryProperty="@nameof(DataItem.Name)" ValueProperty="@(nameof(DataItem.Count))">
+                    <TitleTemplate>
+                        <div class="rz-donut-content">
+                        </div>
+                    </TitleTemplate>
+                </RadzenDonutSeries>
+            </RadzenChart>
+        </RadzenCard>
+    </div>
+    <div class="col-lg-6 panel">
+        <RadzenCard>
+            <h3 class="h5">Weight of Suggestions</h3>
+            <RadzenChart ColorScheme="@colorScheme">
+                <RadzenDonutSeries Data="@_weightOfPotential" CategoryProperty="@nameof(DataItem.Name)" ValueProperty="@(nameof(DataItem.Count))">
+                    <TitleTemplate>
+                        <div class="rz-donut-content">
+                        </div>
+                    </TitleTemplate>
+                </RadzenDonutSeries>
+            </RadzenChart>
+        </RadzenCard>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 panel">
+        <RadzenCard>
+            <h3 class="h5">Top Suggestions</h3>
+            <RadzenChart ColorScheme="@colorScheme">
+                <RadzenDonutSeries Data="@_topSuggestions" CategoryProperty="@nameof(DataItem.Name)" ValueProperty="@(nameof(DataItem.Count))">
+                    <TitleTemplate>
+                        <div class="rz-donut-content">
+                        </div>
+                    </TitleTemplate>
+                </RadzenDonutSeries>
+            </RadzenChart>
+        </RadzenCard>
+    </div>
+</div>
+
+@code {
+    
+    ColorScheme colorScheme = ColorScheme.Monochrome;
+
+    protected override void OnParametersSet()
+    {
+
+        var totalAreaSuggestionWeight = _repo.AreaSuggestions.Sum(x => x.GetSuggestion(_repo).WeightOfPotential);
+        var totalJourneySuggestionWeight = _repo.StepSuggestions.Sum(x => x.GetSuggestion(_repo).WeightOfPotential);
+
+        var areaSuggestionCount = _repo.AreaSuggestions.Count;
+        var journeySuggestionCount = _repo.StepSuggestions.Count;
+        
+
+        _sumOfSuggestions = new List<DataItem>
+        {
+            new() { Name = $"Areas", Count = areaSuggestionCount },
+            new() { Name = $"Journeys", Count = journeySuggestionCount },
+        };
+
+        _weightOfPotential = new List<DataItem>
+        {
+            new() { Name = $"Areas", Count = totalAreaSuggestionWeight },
+            new() { Name = $"Journeys", Count = totalJourneySuggestionWeight },
+        };
+
+        var orderedSuggestions = _repo.Suggestions.OrderByDescending(x => x.WeightOfPotential).ToList();
+        const int suggestionsToShow = 5;
+        _topSuggestions = orderedSuggestions.Take(suggestionsToShow).Select(x => new DataItem { Count = x.WeightOfPotential, Name = x.Headline[..Math.Min(x.Headline.Length, 35)] }).ToList();
+        _topSuggestions.Add(new DataItem { Count = orderedSuggestions.Skip(suggestionsToShow).Sum(x => x.WeightOfPotential), Name = "(All Others)" });
+
+        AvatarCount = _repo.Avatars.Count;
+        AreaCount = _repo.Areas.Count;
+        Journeys = _repo.Journeys.Count;
+    }
+
+    private void GoJourneys() => _navigationManager.NavigateTo("/journeys", true);
+    private void GoAreas() => _navigationManager.NavigateTo("/areas", true);
+    private void GoAvatars() => _navigationManager.NavigateTo("/avatars", true);
+
+    public int AvatarCount { get; set; }
+    public int AreaCount { get; set; }
+    public int Journeys { get; set; }
+
+
+    List<DataItem> _weightOfPotential = new();
+    List<DataItem> _sumOfSuggestions = new();
+    List<DataItem> _topSuggestions = new();
+}
+
+<style>
+    .icon {
+        font-size: 60px;
+        font-weight: 300;
+    }
+
+    .panel {
+        margin-bottom: 30px;
+    }
+</style>

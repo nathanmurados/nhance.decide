@@ -1,0 +1,35 @@
+﻿@using NhanceMap.Services
+@using NhanceMap.Data.DataModels.Improvables
+@inject Repository _repo
+<RadzenPanelMenu Style="height: 100vh; background: #363d40;">
+
+    <h3 style="padding: 0.625rem 1.25rem">Nhance Mapper</h3>
+
+    <RadzenPanelMenuItem Text="Home" Path="/" Icon="account_balance"></RadzenPanelMenuItem>
+    <RadzenPanelMenuItem Text="Journeys" Path="journeys" Icon="motorcycle">
+        @foreach (var j in _journeys)
+        {
+            <RadzenPanelMenuItem Text="@j.Name" Path="@($"/journeys/{j.Id}")"></RadzenPanelMenuItem>
+        }
+    </RadzenPanelMenuItem>
+    <RadzenPanelMenuItem Text="Areas" Path="areas" Icon="build">
+        @foreach (var a in _areas)
+        {
+            <RadzenPanelMenuItem Text="@a.Name" Path="@($"/areas/{a.Id}")"></RadzenPanelMenuItem>
+        }
+    </RadzenPanelMenuItem>
+    <RadzenPanelMenuItem Text="Avatars" Path="avatars" Icon="face"></RadzenPanelMenuItem>
+
+</RadzenPanelMenu>
+
+@code {
+
+    protected override void OnParametersSet()
+    {
+        _journeys = _repo.Journeys.OrderBy(x => x.Name).ToList();
+        _areas = _repo.Areas.OrderBy(x => x.Name).ToList();
+    }
+
+    private List<Journey> _journeys = new();
+    private List<Area> _areas = new();
+}

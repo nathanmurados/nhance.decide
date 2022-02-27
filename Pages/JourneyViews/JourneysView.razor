@@ -1,0 +1,60 @@
+﻿@page "/journeys"
+@using NhanceMap.Data.ViewModels
+@using NhanceMap.Services
+@using Pluralize.NET
+@using NhanceMap.Data.DataModels
+@inject NavigationManager _navigationManager
+@inject Repository _repo
+@inject IPluralize _pluralizer;
+
+<PageTitle>Journeys</PageTitle>
+
+
+<h5 class="fake-anchor clickable" @onclick="GoHome">Home</h5>
+<h1>Journeys</h1>
+
+<div class="row">
+    @{
+        var maxPotential = PopulatedJourneys.Max(x => x.Potential());
+
+        foreach (var j in PopulatedJourneys)
+        {
+            <div class="col-lg-4">
+                <div class="improvable clickable" @onclick="()=>Go(j)">
+                    <h3>
+                        @j.Name
+                    </h3>
+                    @{
+                        var suggestionCount = @j.PopulatedSteps.Sum(j => j.Suggestions.Count());
+                        <span class="@(maxPotential>0&&j.Potential() == maxPotential?"emphasised":"")">
+                            <i class="fal fa-comment-lines" style="width: 20px;"></i>
+                            @if (suggestionCount == 0)
+                            {
+                                <span>No suggestions</span>
+                            }
+                            else
+                            {
+                                @($"{suggestionCount} {_pluralizer.Format("Suggestion", suggestionCount)}")
+                            }
+                        </span>
+                        <br />
+                    }
+                </div>
+            </div>
+        }
+    }
+</div>
+
+
+@code {
+
+    protected override void OnParametersSet()
+    {
+        PopulatedJourneys = _repo.Journeys.Select(j => j.Populate(_repo));
+    }
+
+    public IEnumerable<PopulatedJourney> PopulatedJourneys { get; set; } = new List<PopulatedJourney>();
+
+    private void GoHome() => _navigationManager.NavigateTo($"/", true);
+    private void Go(IIdentifiable j) => _navigationManager.NavigateTo($"/journeys/{j.Id}", true);
+} 
